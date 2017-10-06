@@ -14,21 +14,33 @@ algorithm {
   }
 
   Node start = getStartNode();
+  Node target_node = getNode("Enter the target Node id");
+  label(target_node, "target");
+  color(target_node, TEAL);
+
   setWeight(start, 0);
-  highlight(start);
+  
   put(start, queue);
   endStep();
-
+  String label_read;
   while ( ! empty(queue) ) {
     Node next = get(queue);
-    highlight(next);
-
-    if(next.)
+    if(next.equals(target_node)) {
+        color(next, GREEN);
+        return;
+    }
+    highlight(start);
+    highlight(next); 
 
     for_outgoing( next, e, other ) {
       if ( ! highlighted(other) ) {
+         
         beginStep();
         highlight(e);
+        if(other.equals(target_node)) {
+            color(other, GREEN);
+            return;
+        }
         highlight(other);
         Double distance = weight(next) + 1;
         setWeight(other, distance);
