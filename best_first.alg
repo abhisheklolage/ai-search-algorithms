@@ -54,7 +54,7 @@ algorithm {
   endStep();
 
   t= getNode("Target vertex?");
-  color(t, TEAL);
+  color(s, TEAL);
   endStep();
 
   init_heuristic_costs();
@@ -65,23 +65,19 @@ algorithm {
     Node v = removeBest(pq);
     mark(v);        // nodes are marked when visited
     unhighlight(v); // and highlighted when on the frontier
-    if(!v.equals(s)) {
-	double v_weight = weight(v);
-	v_weight = v_weight - heuristic_astar[id(v)];
-    	setWeight(v, v_weight);
-    }
-    if(v.equals(t)) {
-        color(t, GREEN);
-        return;
-    }
     
     for_outgoing ( v, e, w ) {
       if ( ! marked(w) )  {
         if ( ! highlighted(w) ) highlight(w);
-        double distance = weight(v) + weight(e) + heuristic_astar[id(w)];
-        if ( distance < weight(w) ) {
+           double distance = heuristic_astar[id(w)];
+           
           beginStep();
           highlight(e);
+          if(w.equals(t)) {
+            unhighlight(w);
+            color(w, GREEN);
+            return;
+           }
           Edge previous_chosen = chosenEdge[id(w)];
           if (previous_chosen != null )
             unhighlight(previous_chosen);
@@ -90,7 +86,7 @@ algorithm {
           changeKey(w, pq);
           chosenEdge[id(w)] = e;
           endStep();
-        }
+
       } // end, neighbor not visited (not in tree); do nothing if node
       // is already in tree
     } // end, adjacency list traversal
