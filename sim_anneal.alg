@@ -1,8 +1,3 @@
-/** 
- * Implementation of breadth-first search. If the graph is undirected, the
- * edges are regarded as being directed both ways.
- */
-
 NodeQueue queue;
 
  int k = 1;
@@ -13,11 +8,7 @@ function double acceptanceProbability(Node node, Node next, Node end) {
   if (temperature == INFINITY) {
     temperature = euclidian(getStartNode(), end);
   }
-
-  if (temperature > 5) {
-    temperature = temperature/(2*k);
-    k++;
-  }
+  temperature = temperature/2;
   if (euclidian(next, end) < euclidian(node, end)) {
     return 1.0;
   }
@@ -59,12 +50,13 @@ algorithm {
     for_outgoing( next, e, other ) {
       if ( ! highlighted(other) ) { 
         beginStep();
-        highlight(e);
-        if(other.equals(target_node)) {
-            color(other, GREEN);
-            return;
-        }
+        
         if (acceptanceProbability(next, other, target_node) > Math.random()) {
+           highlight(e);
+           if(other.equals(target_node)) {
+             color(other, GREEN);
+            return;
+          }
           highlight(other);
           Double distance = weight(next) + 1;
           setWeight(other, distance);
