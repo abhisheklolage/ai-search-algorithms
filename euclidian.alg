@@ -11,7 +11,15 @@
 import java.util.PriorityQueue;
 
 double INFINITY = Double.POSITIVE_INFINITY;
-
+function public static double acceptanceProbability(Node node, Node next, Node end) {
+        // If the new solution is better, accept it
+        
+        if (euclidian(next, end)) < euclidean(node, end))) {
+            return 1.0;
+        }
+        // If the new solution is worse, calculate an acceptance probability
+        return Math.exp((euclidian(node, end)) - euclidean(next, end))) / temperature);
+}
 function double euclidian(Node v, Node w) {
     return getPosition(v).distance(getPosition(w));
 }
@@ -30,7 +38,7 @@ algorithm {
 
   beginStep();
   init_edge_costs();
-
+    
   for_nodes(node) {
     setWeight(node, INFINITY);
     pq.add(node);

@@ -1,11 +1,3 @@
-/** dijkstra.alg
- *  Implementation of Dijkstra's shortest path algorithm. Interprets
- *  undirected edges as going in both directions.
- */
-
-/** Required: edge weights defined; otherwise they will be based on geometry */
-
-
 double [] heuristic_astar;
 Node t;
 
