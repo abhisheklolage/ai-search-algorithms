@@ -17,12 +17,12 @@ function init_edge_costs() {
 function init_heuristic_costs() {
   heuristic_astar = new double[nodeIds()];
   for_nodes(node) {
-       if(id(node) == 3) {
-       	heuristic_astar[id(node)] = 50;
-      }
-       else {
+       //if(id(node) == 3) {
+       //	heuristic_astar[id(node)] = 50;
+      //}
+      // else {
 	heuristic_astar[id(node)] = euclidian(node, t) / 100;
-       }
+       //}
        
   }
 }

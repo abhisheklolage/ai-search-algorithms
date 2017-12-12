@@ -1,3 +1,7 @@
+import java.util.Calendar;
+import java.util.Date;
+import java.time.ZonedDateTime;
+
 NodeQueue queue;
 
  int k = 1;
@@ -32,6 +36,8 @@ algorithm {
   label(target_node, "target");
   color(target_node, TEAL);
 
+  Random generator = new Random(0);
+  double random;
   setWeight(start, 0);
   
   put(start, queue);
@@ -51,16 +57,20 @@ algorithm {
       if ( ! highlighted(other) ) { 
         beginStep();
         
-        if (acceptanceProbability(next, other, target_node) > Math.random()) {
+        random = generator.nextDouble();
+        color(other, YELLOW);
+        highlight(other);
+        if (acceptanceProbability(next, other, target_node) > random) {
            highlight(e);
+           
            if(other.equals(target_node)) {
              color(other, GREEN);
-            return;
-          }
-          highlight(other);
-          Double distance = weight(next) + 1;
-          setWeight(other, distance);
-          put(other, queue);
+             return;
+           }
+           highlight(other);
+           Double distance = weight(next) + 1;
+           setWeight(other, distance);
+           put(other, queue);
         }
         endStep();
       }
